@@ -17,7 +17,6 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -52,6 +51,7 @@
       list-style: none;
       display: flex;
       gap: 2rem;
+      align-items: center;
     }
 
     nav a {
@@ -65,6 +65,64 @@
     }
 
     nav a:hover { color: var(--gold-light); }
+
+    /* Language toggle */
+    .lang-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.6rem;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--muted);
+      transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 57px; left: 0; right: 0;
+      z-index: 99;
+      background: rgba(26, 22, 18, 0.97);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .mobile-menu a:hover { color: var(--gold-light); }
 
     /* ── HERO ── */
     #hero {
@@ -98,10 +156,7 @@
       margin-bottom: 1.5rem;
     }
 
-    h1 em {
-      font-style: italic;
-      color: var(--gold-light);
-    }
+    h1 em { font-style: italic; color: var(--gold-light); }
 
     .hero-sub {
       font-size: 1.1rem;
@@ -122,11 +177,7 @@
       text-transform: uppercase;
       transition: background 0.2s, color 0.2s;
     }
-
-    .btn:hover {
-      background: var(--gold);
-      color: var(--bg);
-    }
+    .btn:hover { background: var(--gold); color: var(--bg); }
 
     /* ── DIVIDER ── */
     .divider {
@@ -160,13 +211,30 @@
       margin-bottom: 1.5rem;
     }
 
-    p {
-      color: var(--muted);
-      font-size: 1.05rem;
-      max-width: 640px;
+    p { color: var(--muted); font-size: 1.05rem; max-width: 640px; }
+
+    /* ── GALLERI ── */
+    #galleri { max-width: 100%; padding: 5rem 0; }
+    #galleri > .inner { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      margin-top: 2.5rem;
     }
 
-    /* ── OM OSS ── */
+    .gallery-grid img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.88) saturate(0.85);
+      transition: filter 0.3s;
+    }
+    .gallery-grid img:hover { filter: brightness(1) saturate(1); }
+
+    /* ── OM OSS / HISTORIE ── */
     .om-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -188,8 +256,47 @@
       font-family: 'Helvetica Neue', sans-serif;
       letter-spacing: 0.08em;
     }
-
     .om-card p { font-size: 0.95rem; }
+
+    /* Tidslinje */
+    .timeline {
+      margin-top: 3rem;
+      border-left: 2px solid var(--border);
+      padding-left: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .timeline-item { position: relative; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.45rem;
+      top: 0.45rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .timeline-item .year {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-item h3 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-item p { font-size: 0.9rem; max-width: none; }
 
     /* ── ØL ── */
     #ol { background: var(--surface); max-width: 100%; padding: 5rem 0; }
@@ -203,10 +310,7 @@
       margin-top: 2.5rem;
     }
 
-    .tap-item {
-      padding: 1.2rem 1.5rem;
-      border: 1px solid var(--border);
-    }
+    .tap-item { padding: 1.2rem 1.5rem; border: 1px solid var(--border); }
 
     .tap-item .brewery {
       font-family: 'Helvetica Neue', sans-serif;
@@ -217,16 +321,24 @@
       margin-bottom: 0.3rem;
     }
 
-    .tap-item .beer-name {
-      color: var(--cream);
-      font-size: 0.95rem;
-    }
+    .tap-item .beer-name { color: var(--cream); font-size: 0.95rem; }
+    .tap-item .style { font-size: 0.8rem; color: var(--muted); font-style: italic; }
 
-    .tap-item .style {
+    .untappd-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      color: var(--gold);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', sans-serif;
       font-size: 0.8rem;
-      color: var(--muted);
-      font-style: italic;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
     }
+    .untappd-link:hover { border-color: var(--gold); }
 
     /* ── MAT ── */
     .mat-list {
@@ -246,34 +358,47 @@
     .mat-item h3 { font-size: 1rem; font-weight: 400; color: var(--cream); margin-bottom: 0.4rem; }
     .mat-item p { font-size: 0.85rem; max-width: none; }
 
-    /* ── GALLERI ── */
-    #galleri { max-width: 100%; padding: 5rem 0; }
-    #galleri > .inner { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+    /* ── INSTAGRAM ── */
+    #instagram { background: var(--surface); max-width: 100%; padding: 5rem 0; }
+    #instagram > .inner { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
 
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 6px;
+    .instagram-cta {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
       margin-top: 2.5rem;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: border-color 0.2s;
+    }
+    .instagram-cta:hover { border-color: var(--gold); }
+
+    .instagram-cta .ig-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
     }
 
-    .gallery-grid img {
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
-      display: block;
-      filter: brightness(0.88) saturate(0.85);
-      transition: filter 0.3s;
+    .instagram-cta .ig-text h3 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
     }
 
-    .gallery-grid img:hover { filter: brightness(1) saturate(1); }
-
-    @media (max-width: 640px) {
-      .gallery-grid { grid-template-columns: 1fr 1fr; }
-      .gallery-grid img { height: 160px; }
+    .instagram-cta .ig-text p {
+      font-size: 0.9rem;
+      max-width: none;
     }
 
-    /* ── ÅPNINGSTIDER ── */
+    .instagram-cta .ig-arrow {
+      margin-left: auto;
+      color: var(--gold);
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    /* ── ÅPNINGSTIDER + KONTAKT ── */
     .hours-table {
       margin-top: 2rem;
       width: 100%;
@@ -285,7 +410,6 @@
     .hours-table td { padding: 0.7rem 0; color: var(--muted); font-size: 0.95rem; }
     .hours-table td:last-child { text-align: right; color: var(--text); }
 
-    /* ── KONTAKT ── */
     .kontakt-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -302,48 +426,106 @@
       margin-bottom: 0.4rem;
     }
 
-    .kontakt-item a {
-      color: var(--text);
-      text-decoration: none;
-    }
-
+    .kontakt-item a { color: var(--text); text-decoration: none; }
     .kontakt-item a:hover { color: var(--gold-light); }
+
+    /* Kart */
+    .map-wrapper {
+      margin-top: 2.5rem;
+      width: 100%;
+      height: 300px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .map-wrapper iframe { width: 100%; height: 100%; border: 0; filter: grayscale(0.4) invert(0.9) hue-rotate(175deg); }
 
     /* ── FOOTER ── */
     footer {
-      text-align: center;
-      padding: 3rem 2rem;
+      background: var(--surface);
       border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
       font-family: 'Helvetica Neue', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
       color: var(--muted);
+    }
+
+    .footer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-col h4 {
+      color: var(--gold);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-col p, .footer-col a {
+      color: var(--muted);
+      text-decoration: none;
+      display: block;
+      line-height: 1.9;
+      font-size: 0.8rem;
+      max-width: none;
+    }
+
+    .footer-col a:hover { color: var(--gold-light); }
+
+    .footer-bottom {
+      max-width: 900px;
+      margin: 0 auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
     }
 
     .social-links {
       display: flex;
-      justify-content: center;
       gap: 1.5rem;
-      margin-bottom: 1.5rem;
     }
 
     .social-links a {
       color: var(--muted);
       text-decoration: none;
-      font-size: 0.75rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       transition: color 0.2s;
     }
-
     .social-links a:hover { color: var(--gold-light); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       nav ul { display: none; }
+      .hamburger { display: flex; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .footer-bottom { flex-direction: column; gap: 1rem; }
+    }
+
+    @media (max-width: 640px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid img { height: 160px; }
       .om-grid { grid-template-columns: 1fr; }
       .kontakt-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .instagram-cta { flex-wrap: wrap; }
     }
+
+    /* ── HIDDEN TRANSLATIONS ── */
+    [data-en] { display: none; }
+    html[lang="en"] [data-no] { display: none; }
+    html[lang="en"] [data-en] { display: inline; }
+    html[lang="en"] [data-en-block] { display: block; }
+    [data-en-block] { display: none; }
   </style>
 </head>
 <body>
@@ -352,21 +534,38 @@
   <nav>
     <span class="logo">Mysterud Bar</span>
     <ul>
-      <li><a href="#om">Om oss</a></li>
-      <li><a href="#ol">Øl</a></li>
-      <li><a href="#mat">Mat</a></li>
-      <li><a href="#kontakt">Kontakt</a></li>
+      <li><a href="#om"><span data-no>Om oss</span><span data-en>About</span></a></li>
+      <li><a href="#ol">Øl / Beer</a></li>
+      <li><a href="#mat"><span data-no>Mat</span><span data-en>Food</span></a></li>
+      <li><a href="#kontakt"><span data-no>Kontakt</span><span data-en>Contact</span></a></li>
+      <li><button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button></li>
     </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Meny">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBIL MENY -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#om" onclick="toggleMenu()"><span data-no>Om oss</span><span data-en>About</span></a>
+    <a href="#ol" onclick="toggleMenu()">Øl / Beer</a>
+    <a href="#mat" onclick="toggleMenu()"><span data-no>Mat</span><span data-en>Food</span></a>
+    <a href="#kontakt" onclick="toggleMenu()"><span data-no>Kontakt</span><span data-en>Contact</span></a>
+    <button class="lang-btn" onclick="toggleLang()" style="width:fit-content" id="langBtnMobile">EN</button>
+  </div>
 
   <!-- HERO -->
   <section id="hero">
     <p class="hero-eyebrow">Sagene, Oslo · Est. 2017</p>
-    <h1>Din nabolagskneipe<br>på <em>Sagene</em></h1>
+    <h1>
+      <span data-no>Din nabolagskneipe<br>på <em>Sagene</em></span>
+      <span data-en>Your neighbourhood bar<br>in <em>Sagene</em></span>
+    </h1>
     <p class="hero-sub">
-      En lun og levende bar med norsk håndverksøl på kran, gode fjøler og en uformell stemning du ikke finner andre steder.
+      <span data-no>En lun og levende bar med norsk håndverksøl på kran, gode fjøler og en uformell stemning du ikke finner andre steder.</span>
+      <span data-en>A warm and lively bar with Norwegian craft beer on tap, great boards and an informal atmosphere you won't find elsewhere.</span>
     </p>
-    <a href="#om" class="btn">Finn ut mer</a>
+    <a href="#om" class="btn"><span data-no>Finn ut mer</span><span data-en>Learn more</span></a>
   </section>
 
   <div class="divider">✦</div>
@@ -374,8 +573,8 @@
   <!-- GALLERI -->
   <div id="galleri">
     <div class="inner">
-      <p class="section-label">Stemning</p>
-      <h2>Se deg rundt</h2>
+      <p class="section-label"><span data-no>Stemning</span><span data-en>Atmosphere</span></p>
+      <h2><span data-no>Se deg rundt</span><span data-en>Take a look around</span></h2>
       <div class="gallery-grid">
         <img src="https://media.evendo.com/locations-resized/BarImages/360x263/65a5e917-a224-4ac2-ab65-268a13be90d6" alt="Mysterud Bar" />
         <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/dc/ce/d7/inside.jpg?w=700&h=500&s=1" alt="Inne på Mysterud Bar" />
@@ -387,25 +586,45 @@
     </div>
   </div>
 
-  <!-- OM OSS -->
+  <!-- OM OSS + HISTORIE -->
   <section id="om">
-    <p class="section-label">Om Mysterud Bar</p>
-    <h2>En bar med sjel og historie</h2>
+    <p class="section-label"><span data-no>Om Mysterud Bar</span><span data-en>About Mysterud Bar</span></p>
+    <h2><span data-no>En bar med sjel og historie</span><span data-en>A bar with soul and history</span></h2>
     <p>
-      Mysterud Bar holder til i et lokale som i generasjoner huset et av Sagenes kjente jernvaremagasiner. I 2017 ble det åpnet dørene til noe nytt – men ånden fra nabolaget ble igjen. To rom, god musikk, kyndige bartendere og et ølutvalg som faktisk betyr noe.
+      <span data-no>Mysterud Bar holder til i et lokale som i generasjoner huset et av Sagenes kjente jernvaremagasiner. I 2017 ble det åpnet dørene til noe nytt – men ånden fra nabolaget ble igjen. To rom, god musikk, kyndige bartendere og et ølutvalg som faktisk betyr noe.</span>
+      <span data-en>Mysterud Bar is housed in a space that for generations held one of Sagene's well-known hardware stores. In 2017 the doors opened to something new – but the spirit of the neighbourhood stayed. Two rooms, good music, knowledgeable bartenders and a beer selection that actually means something.</span>
     </p>
-    <div class="om-grid">
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="year">Tidlig 1900-tall</div>
+        <h3><span data-no>Jernvaremagasinet</span><span data-en>The hardware store</span></h3>
+        <p><span data-no>Lokalet i Arendalsgata 18 huser i generasjoner et av nabolagets viktigste butikker – et jernvaremagasin som forsyner Sagene-befolkningen med det de trenger.</span><span data-en>The space at Arendalsgata 18 housed one of the neighbourhood's most important shops for generations – a hardware store supplying the people of Sagene with everything they needed.</span></p>
+      </div>
+      <div class="timeline-item">
+        <div class="year">2017</div>
+        <h3><span data-no>Mysterud Bar åpner</span><span data-en>Mysterud Bar opens</span></h3>
+        <p><span data-no>Butikken blir til bar. De originale rommene beholdes, og en ny æra starter – med norsk håndverksøl, gode fjøler og nabolagets folk.</span><span data-en>The shop becomes a bar. The original rooms are kept intact, and a new era begins – with Norwegian craft beer, great boards and the people of the neighbourhood.</span></p>
+      </div>
+      <div class="timeline-item">
+        <div class="year"><span data-no>I dag</span><span data-en>Today</span></div>
+        <h3><span data-no>Et ekte stamsted</span><span data-en>A true local</span></h3>
+        <p><span data-no>Over 90 øl, 12 på kran, to rom og utallige hyggelige kvelder senere – Mysterud er blitt akkurat det Sagene trengte.</span><span data-en>Over 90 beers, 12 on tap, two rooms and countless good evenings later – Mysterud has become exactly what Sagene needed.</span></p>
+      </div>
+    </div>
+
+    <div class="om-grid" style="margin-top:3rem;">
       <div class="om-card">
-        <h3>Norsk håndverksøl</h3>
-        <p>12 tappekraner med et utvalg som stadig skifter. Vi prioriterer norske bryggerier som Kinn, Graff og Schouskjelleren – men er alltid åpne for det beste fra utlandet også.</p>
+        <h3><span data-no>Norsk håndverksøl</span><span data-en>Norwegian craft beer</span></h3>
+        <p><span data-no>12 tappekraner med et utvalg som stadig skifter. Vi prioriterer norske bryggerier som Kinn, Graff og Homborsund – men er alltid åpne for det beste fra utlandet også.</span><span data-en>12 taps with a selection that keeps changing. We prioritise Norwegian breweries like Kinn, Graff and Homborsund – but are always open to the best from abroad.</span></p>
       </div>
       <div class="om-card">
-        <h3>To rom, én stemning</h3>
-        <p>Enten du vil sitte stille i hjørnet med en bok og en pils, eller stå i baren og prate med folk du aldri har møtt – det er plass til begge deler her.</p>
+        <h3><span data-no>To rom, én stemning</span><span data-en>Two rooms, one vibe</span></h3>
+        <p><span data-no>Enten du vil sitte stille i hjørnet med en bok og en pils, eller stå i baren og prate med folk du aldri har møtt – det er plass til begge deler her.</span><span data-en>Whether you want to sit quietly in the corner with a book and a pint, or stand at the bar chatting to strangers – there's room for both here.</span></p>
       </div>
       <div class="om-card">
-        <h3>Hyggelig service</h3>
-        <p>Vi er stolte av den avslappede og imøtekommende stemningen. Kom som du er – du vil bli tatt godt imot.</p>
+        <h3><span data-no>Hyggelig service</span><span data-en>Friendly service</span></h3>
+        <p><span data-no>Vi er stolte av den avslappede og imøtekommende stemningen. Kom som du er – du vil bli tatt godt imot.</span><span data-en>We're proud of the relaxed and welcoming atmosphere. Come as you are – you'll be well received.</span></p>
       </div>
     </div>
   </section>
@@ -413,10 +632,11 @@
   <!-- ØL -->
   <div id="ol">
     <div class="inner">
-      <p class="section-label">Ølmeny</p>
-      <h2>12 på kran. Over 90 på lista.</h2>
+      <p class="section-label"><span data-no>Ølmeny</span><span data-en>Beer menu</span></p>
+      <h2><span data-no>12 på kran. Over 90 på lista.</span><span data-en>12 on tap. Over 90 on the list.</span></h2>
       <p>
-        Krana skifter, men kvaliteten gjør ikke det. Her er et utvalg av hvem som for tiden flommer gjennom kruttlinjene våre.
+        <span data-no>Krana skifter, men kvaliteten gjør ikke det. Her er et utvalg av hvem som for tiden flommer gjennom kruttlinjene våre.</span>
+        <span data-en>The taps change, but the quality doesn't. Here's a selection of what's currently flowing through our lines.</span>
       </p>
       <div class="tap-list">
         <div class="tap-item">
@@ -427,12 +647,12 @@
         <div class="tap-item">
           <div class="brewery">Graff Brygghus</div>
           <div class="beer-name">Graff LITE</div>
-          <div class="style">Lager (glutenfri)</div>
+          <div class="style"><span data-no>Lager (glutenfri)</span><span data-en>Lager (gluten-free)</span></div>
         </div>
         <div class="tap-item">
           <div class="brewery">Homborsund Mikrobryggeri</div>
           <div class="beer-name">Sesongøl</div>
-          <div class="style">Varierer</div>
+          <div class="style"><span data-no>Varierer</span><span data-en>Seasonal</span></div>
         </div>
         <div class="tap-item">
           <div class="brewery">Ayinger</div>
@@ -456,64 +676,86 @@
         </div>
       </div>
       <p style="margin-top:1.5rem; font-size:0.85rem;">
-        I tillegg har vi et bredt utvalg på flaske og boks fra over 90 øl, samt vin og whisky. Spør bartender for dagens kart.
+        <span data-no>I tillegg har vi et bredt utvalg på flaske og boks fra over 90 øl, samt vin og whisky. Spør bartender for dagens kart.</span>
+        <span data-en>We also carry an extensive selection of bottled and canned beers – over 90 in total – plus wine and whisky. Ask the bartender for today's list.</span>
       </p>
+      <a href="https://untappd.com/v/mysterud-bar/5945190" target="_blank" rel="noopener" class="untappd-link">
+        🍺 <span data-no>Se live ølliste på Untappd</span><span data-en>View live beer list on Untappd</span> →
+      </a>
     </div>
   </div>
 
   <!-- MAT -->
   <section id="mat">
-    <p class="section-label">Mat</p>
-    <h2>Enkelt. Godt. Akkurat passe.</h2>
+    <p class="section-label"><span data-no>Mat</span><span data-en>Food</span></p>
+    <h2><span data-no>Enkelt. Godt. Akkurat passe.</span><span data-en>Simple. Good. Just right.</span></h2>
     <p>
-      Vi serverer ikke middagsretter – vi serverer det som passer til et glass. Kvalitetsprodukter satt sammen med omhu.
+      <span data-no>Vi serverer ikke middagsretter – vi serverer det som passer til et glass. Kvalitetsprodukter satt sammen med omhu.</span>
+      <span data-en>We don't serve main courses – we serve what goes with a drink. Quality products put together with care.</span>
     </p>
     <div class="mat-list">
       <div class="mat-item">
         <div class="icon">🧀</div>
-        <h3>Ostefjøl</h3>
-        <p>Utvalgte oster med tilbehør</p>
+        <h3><span data-no>Ostefjøl</span><span data-en>Cheese board</span></h3>
+        <p><span data-no>Utvalgte oster med tilbehør</span><span data-en>Selected cheeses with accompaniments</span></p>
       </div>
       <div class="mat-item">
         <div class="icon">🥩</div>
-        <h3>Spekemat</h3>
-        <p>Norsk og europeisk charcuterie</p>
+        <h3><span data-no>Spekemat</span><span data-en>Charcuterie</span></h3>
+        <p><span data-no>Norsk og europeisk charcuterie</span><span data-en>Norwegian and European cured meats</span></p>
       </div>
       <div class="mat-item">
         <div class="icon">🐟</div>
         <h3>Sardiner</h3>
-        <p>Premium hermetiske sardiner</p>
+        <p><span data-no>Premium hermetiske sardiner</span><span data-en>Premium tinned sardines</span></p>
       </div>
       <div class="mat-item">
         <div class="icon">🍫</div>
-        <h3>Sjokolade</h3>
-        <p>Mørk sjokolade til ølet</p>
+        <h3><span data-no>Sjokolade</span><span data-en>Chocolate</span></h3>
+        <p><span data-no>Mørk sjokolade til ølet</span><span data-en>Dark chocolate to go with your beer</span></p>
       </div>
     </div>
   </section>
 
-  <!-- ÅPNINGSTIDER + KONTAKT -->
+  <!-- INSTAGRAM -->
+  <div id="instagram">
+    <div class="inner">
+      <p class="section-label">Instagram</p>
+      <h2><span data-no>Følg oss</span><span data-en>Follow us</span></h2>
+      <p><span data-no>Se hva som skjer på baren – nye øl på kran, kvelder med gjester og stemning fra Arendalsgata.</span><span data-en>See what's happening at the bar – new beers on tap, evenings with guests and vibes from Arendalsgata.</span></p>
+      <a href="https://www.instagram.com/mysterudbar/" target="_blank" rel="noopener" class="instagram-cta">
+        <div class="ig-icon">📸</div>
+        <div class="ig-text">
+          <h3>@mysterudbar</h3>
+          <p><span data-no>Følg oss på Instagram for oppdateringer, bilder og nyheter.</span><span data-en>Follow us on Instagram for updates, photos and news.</span></p>
+        </div>
+        <div class="ig-arrow">→</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ÅPNINGSTIDER + KONTAKT + KART -->
   <section id="kontakt" style="padding-top: 2rem;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; flex-wrap: wrap;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;">
       <div>
-        <p class="section-label">Åpningstider</p>
-        <h2>Vi er åpne</h2>
+        <p class="section-label"><span data-no>Åpningstider</span><span data-en>Opening hours</span></p>
+        <h2><span data-no>Vi er åpne</span><span data-en>We're open</span></h2>
         <table class="hours-table">
-          <tr><td>Mandag – torsdag</td><td>14:00 – 00:30</td></tr>
-          <tr><td>Fredag – lørdag</td><td>14:00 – 01:00</td></tr>
-          <tr><td>Søndag</td><td>14:00 – 00:30</td></tr>
+          <tr><td><span data-no>Mandag – torsdag</span><span data-en>Monday – Thursday</span></td><td>14:00 – 00:30</td></tr>
+          <tr><td><span data-no>Fredag – lørdag</span><span data-en>Friday – Saturday</span></td><td>14:00 – 01:00</td></tr>
+          <tr><td><span data-no>Søndag</span><span data-en>Sunday</span></td><td>14:00 – 00:30</td></tr>
         </table>
       </div>
       <div>
-        <p class="section-label">Finn oss</p>
-        <h2>Kontakt</h2>
+        <p class="section-label"><span data-no>Finn oss</span><span data-en>Find us</span></p>
+        <h2><span data-no>Kontakt</span><span data-en>Contact</span></h2>
         <div class="kontakt-grid" style="grid-template-columns: 1fr;">
           <div class="kontakt-item">
-            <div class="label">Adresse</div>
+            <div class="label"><span data-no>Adresse</span><span data-en>Address</span></div>
             <div>Arendalsgata 18<br>0463 Oslo (Sagene)</div>
           </div>
           <div class="kontakt-item">
-            <div class="label">Telefon</div>
+            <div class="label"><span data-no>Telefon</span><span data-en>Phone</span></div>
             <a href="tel:+4791609555">+47 916 09 555</a>
           </div>
           <div class="kontakt-item">
@@ -523,16 +765,79 @@
         </div>
       </div>
     </div>
+
+    <!-- KART -->
+    <div class="map-wrapper">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2000.1!2d10.7611!3d59.9285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46416e7b8f7e3e0b%3A0x8c3e9b7e2b5f1a2c!2sArendalsgata%2018%2C%200463%20Oslo!5e0!3m2!1sno!2sno!4v1"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Mysterud Bar på kart">
+      </iframe>
+    </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="social-links">
-      <a href="https://www.facebook.com/mysterudbar/" target="_blank" rel="noopener">Facebook</a>
-      <a href="https://www.instagram.com/mysterudbar/" target="_blank" rel="noopener">Instagram</a>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>Mysterud Bar</h4>
+        <p>Arendalsgata 18</p>
+        <p>0463 Oslo</p>
+        <p>Sagene</p>
+      </div>
+      <div class="footer-col">
+        <h4><span data-no>Åpningstider</span><span data-en>Hours</span></h4>
+        <p><span data-no>Man–tor & søn:</span><span data-en>Mon–Thu & Sun:</span> 14–00:30</p>
+        <p><span data-no>Fre–lør:</span><span data-en>Fri–Sat:</span> 14–01:00</p>
+      </div>
+      <div class="footer-col">
+        <h4><span data-no>Kontakt</span><span data-en>Contact</span></h4>
+        <a href="tel:+4791609555">+47 916 09 555</a>
+        <a href="mailto:post@mysterudbar.no">post@mysterudbar.no</a>
+        <a href="https://www.facebook.com/mysterudbar/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/mysterudbar/" target="_blank" rel="noopener">Instagram</a>
+      </div>
     </div>
-    <p>© 2025 Mysterud Bar · Arendalsgata 18, Oslo</p>
+    <div class="footer-bottom">
+      <p>© 2026 Mysterud Bar</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/mysterudbar/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/mysterudbar/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://untappd.com/v/mysterud-bar/5945190" target="_blank" rel="noopener">Untappd</a>
+      </div>
+    </div>
   </footer>
+
+  <script>
+    // Hamburger-meny
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      btn.classList.toggle('open');
+    }
+
+    // Lukk mobilmeny ved klikk utenfor
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('mobileMenu');
+      const btn = document.getElementById('hamburger');
+      if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+      }
+    });
+
+    // Språkbytte NO/EN
+    function toggleLang() {
+      const html = document.documentElement;
+      const isEn = html.lang === 'en';
+      html.lang = isEn ? 'no' : 'en';
+      document.getElementById('langBtn').textContent = isEn ? 'EN' : 'NO';
+      document.getElementById('langBtnMobile').textContent = isEn ? 'EN' : 'NO';
+    }
+  </script>
 
 </body>
 </html>
