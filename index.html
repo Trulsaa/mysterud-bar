@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mysterud Bar – Sagene, Oslo</title>
+  <style>
+    :root {
+      --bg:        #1a1612;
+      --surface:   #231f1a;
+      --border:    #3a3028;
+      --gold:      #c8922a;
+      --gold-light:#e8b04a;
+      --text:      #e8e0d5;
+      --muted:     #9a8f82;
+      --cream:     #f5ede0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2.5rem;
+      background: rgba(26, 22, 18, 0.92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav .logo {
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--gold-light); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      background:
+        radial-gradient(ellipse at 50% 60%, rgba(200, 146, 42, 0.08) 0%, transparent 70%),
+        var(--bg);
+    }
+
+    .hero-eyebrow {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 3rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2.2rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      text-decoration: none;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      text-align: center;
+      color: var(--gold);
+      font-size: 1.4rem;
+      padding: 0.5rem 0;
+      opacity: 0.4;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 640px;
+    }
+
+    /* ── OM OSS ── */
+    .om-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .om-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+    }
+
+    .om-card h3 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--gold-light);
+      margin-bottom: 0.75rem;
+      font-family: 'Helvetica Neue', sans-serif;
+      letter-spacing: 0.08em;
+    }
+
+    .om-card p { font-size: 0.95rem; }
+
+    /* ── ØL ── */
+    #ol { background: var(--surface); max-width: 100%; padding: 5rem 0; }
+    #ol > .inner { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+    .tap-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1px;
+      border: 1px solid var(--border);
+      margin-top: 2.5rem;
+    }
+
+    .tap-item {
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .tap-item .brewery {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .tap-item .beer-name {
+      color: var(--cream);
+      font-size: 0.95rem;
+    }
+
+    .tap-item .style {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── MAT ── */
+    .mat-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .mat-item {
+      text-align: center;
+      padding: 2rem 1rem;
+      border: 1px solid var(--border);
+    }
+
+    .mat-item .icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .mat-item h3 { font-size: 1rem; font-weight: 400; color: var(--cream); margin-bottom: 0.4rem; }
+    .mat-item p { font-size: 0.85rem; max-width: none; }
+
+    /* ── PRIVATE EVENTS ── */
+    .event-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      padding: 2.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .event-box p { max-width: 560px; }
+
+    /* ── ÅPNINGSTIDER ── */
+    .hours-table {
+      margin-top: 2rem;
+      width: 100%;
+      max-width: 420px;
+      border-collapse: collapse;
+    }
+
+    .hours-table tr { border-bottom: 1px solid var(--border); }
+    .hours-table td { padding: 0.7rem 0; color: var(--muted); font-size: 0.95rem; }
+    .hours-table td:last-child { text-align: right; color: var(--text); }
+
+    /* ── KONTAKT ── */
+    .kontakt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .kontakt-item .label {
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .kontakt-item a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .kontakt-item a:hover { color: var(--gold-light); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid var(--border);
+      font-family: 'Helvetica Neue', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .social-links a:hover { color: var(--gold-light); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+      .om-grid { grid-template-columns: 1fr; }
+      .kontakt-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="logo">Mysterud Bar</span>
+    <ul>
+      <li><a href="#om">Om oss</a></li>
+      <li><a href="#ol">Øl</a></li>
+      <li><a href="#mat">Mat</a></li>
+      <li><a href="#arrangementer">Arrangementer</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-eyebrow">Sagene, Oslo · Est. 2017</p>
+    <h1>Din nabolagskneipe<br>på <em>Sagene</em></h1>
+    <p class="hero-sub">
+      En lun og levende bar med norsk håndverksøl på kran, gode fjøler og en uformell stemning du ikke finner andre steder.
+    </p>
+    <a href="#om" class="btn">Finn ut mer</a>
+  </section>
+
+  <div class="divider">✦</div>
+
+  <!-- OM OSS -->
+  <section id="om">
+    <p class="section-label">Om Mysterud Bar</p>
+    <h2>En bar med sjel og historie</h2>
+    <p>
+      Mysterud Bar holder til i et lokale som i generasjoner huset et av Sagenes kjente jernvaremagasiner. I 2017 ble det åpnet dørene til noe nytt – men ånden fra nabolaget ble igjen. To rom, god musikk, kyndige bartendere og et ølutvalg som faktisk betyr noe.
+    </p>
+    <div class="om-grid">
+      <div class="om-card">
+        <h3>Norsk håndverksøl</h3>
+        <p>12 tappekraner med et utvalg som stadig skifter. Vi prioriterer norske bryggerier som Kinn, Graff og Schouskjelleren – men er alltid åpne for det beste fra utlandet også.</p>
+      </div>
+      <div class="om-card">
+        <h3>To rom, én stemning</h3>
+        <p>Enten du vil sitte stille i hjørnet med en bok og en pils, eller stå i baren og prate med folk du aldri har møtt – det er plass til begge deler her.</p>
+      </div>
+      <div class="om-card">
+        <h3>Sagene-øl på kran</h3>
+        <p>Vi er et av svært få steder i Oslo som har Sagene Pils på tapp. En lokal klassiker for et lokalt stamsted.</p>
+      </div>
+      <div class="om-card">
+        <h3>Hyggelig service</h3>
+        <p>Vi er stolte av den avslappede og imøtekommende stemningen. Kom som du er – du vil bli tatt godt imot.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ØL -->
+  <div id="ol">
+    <div class="inner">
+      <p class="section-label">Ølmeny</p>
+      <h2>12 på kran. Over 90 på lista.</h2>
+      <p>
+        Krana skifter, men kvaliteten gjør ikke det. Her er et utvalg av hvem som for tiden flommer gjennom kruttlinjene våre.
+      </p>
+      <div class="tap-list">
+        <div class="tap-item">
+          <div class="brewery">Kinn Bryggeri</div>
+          <div class="beer-name">Mysterud</div>
+          <div class="style">Vienna Lager · 5.5%</div>
+        </div>
+        <div class="tap-item">
+          <div class="brewery">Graff Brygghus</div>
+          <div class="beer-name">Graff LITE</div>
+          <div class="style">Lager (glutenfri)</div>
+        </div>
+        <div class="tap-item">
+          <div class="brewery">Schouskjelleren</div>
+          <div class="beer-name">Sagene Pils</div>
+          <div class="style">Pilsner</div>
+        </div>
+        <div class="tap-item">
+          <div class="brewery">Homborsund Mikrobryggeri</div>
+          <div class="beer-name">Sesongøl</div>
+          <div class="style">Varierer</div>
+        </div>
+        <div class="tap-item">
+          <div class="brewery">Ayinger</div>
+          <div class="beer-name">Bairisch Pils</div>
+          <div class="style">German Pilsner</div>
+        </div>
+        <div class="tap-item">
+          <div class="brewery">Põhjala</div>
+          <div class="beer-name">Baltic Porter</div>
+          <div class="style">Baltic Porter</div>
+        </div>
+        <div class="tap-item">
+          <div class="brewery">Brew York</div>
+          <div class="beer-name">Black Bess</div>
+          <div class="style">Irish Dry Stout</div>
+        </div>
+        <div class="tap-item">
+          <div class="brewery">Basqueland Brewing</div>
+          <div class="beer-name">Skeleton Gang</div>
+          <div class="style">IPA</div>
+        </div>
+      </div>
+      <p style="margin-top:1.5rem; font-size:0.85rem;">
+        I tillegg har vi et bredt utvalg på flaske og boks fra over 90 øl, samt vin og whisky. Spør bartender for dagens kart.
+      </p>
+    </div>
+  </div>
+
+  <!-- MAT -->
+  <section id="mat">
+    <p class="section-label">Mat</p>
+    <h2>Enkelt. Godt. Akkurat passe.</h2>
+    <p>
+      Vi serverer ikke middagsretter – vi serverer det som passer til et glass. Kvalitetsprodukter satt sammen med omhu.
+    </p>
+    <div class="mat-list">
+      <div class="mat-item">
+        <div class="icon">🧀</div>
+        <h3>Ostefjøl</h3>
+        <p>Utvalgte oster med tilbehør</p>
+      </div>
+      <div class="mat-item">
+        <div class="icon">🥩</div>
+        <h3>Spekemat</h3>
+        <p>Norsk og europeisk charcuterie</p>
+      </div>
+      <div class="mat-item">
+        <div class="icon">🐟</div>
+        <h3>Sardiner</h3>
+        <p>Premium hermetiske sardiner</p>
+      </div>
+      <div class="mat-item">
+        <div class="icon">🍫</div>
+        <h3>Sjokolade</h3>
+        <p>Mørk sjokolade til ølet</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARRANGEMENTER -->
+  <section id="arrangementer">
+    <p class="section-label">Private arrangementer</p>
+    <h2>Feir noe som betyr noe</h2>
+    <p>
+      Bakrommet vårt kan reserveres for private selskaper på opptil 35 personer. Perfekt for bursdager, vennesamlinger eller firmafester – med den samme uformelle stemningen som alltid kjennetegner Mysterud.
+    </p>
+    <div class="event-box">
+      <h3 style="color: var(--gold-light); font-size: 1.1rem; font-weight: 400; margin-bottom: 0.75rem;">Hva vi kan tilby</h3>
+      <p>Eget bakrom · Pizza fra Jungel Pizza · Fjøler med ost og spekemat · Velkomstdrink · Fleksibel bar-løsning – individuell eller fellesregning</p>
+      <br>
+      <a href="mailto:post@mysterudbar.no" class="btn" style="margin-top:0.5rem;">Ta kontakt</a>
+    </div>
+  </section>
+
+  <!-- ÅPNINGSTIDER + KONTAKT -->
+  <section id="kontakt" style="padding-top: 2rem;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; flex-wrap: wrap;">
+      <div>
+        <p class="section-label">Åpningstider</p>
+        <h2>Vi er åpne</h2>
+        <table class="hours-table">
+          <tr><td>Mandag – torsdag</td><td>14:00 – 00:30</td></tr>
+          <tr><td>Fredag – lørdag</td><td>14:00 – 01:00</td></tr>
+          <tr><td>Søndag</td><td>14:00 – 00:30</td></tr>
+        </table>
+      </div>
+      <div>
+        <p class="section-label">Finn oss</p>
+        <h2>Kontakt</h2>
+        <div class="kontakt-grid" style="grid-template-columns: 1fr;">
+          <div class="kontakt-item">
+            <div class="label">Adresse</div>
+            <div>Arendalsgata 18<br>0463 Oslo (Sagene)</div>
+          </div>
+          <div class="kontakt-item">
+            <div class="label">Telefon</div>
+            <a href="tel:+4791609555">+47 916 09 555</a>
+          </div>
+          <div class="kontakt-item">
+            <div class="label">E-post</div>
+            <a href="mailto:post@mysterudbar.no">post@mysterudbar.no</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.facebook.com/mysterudbar/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/mysterudbar/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+    <p>© 2025 Mysterud Bar · Arendalsgata 18, Oslo</p>
+  </footer>
+
+</body>
+</html>
